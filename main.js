@@ -23,18 +23,18 @@ function onsubmit(e){
     //adding element to browser
     const li = document.createElement(`li`);
     li.className=`list-group-item-light`;
-    li.innerText=`Amount ${amount.value} Description ${description.value} Category ${category.value} `
+    li.innerText=` ${amount.value} rs - ${description.value} - ${category.value} `
 
     //edit btn
     const editbtn= document.createElement(`button`);
-    editbtn.className=`btn btn-success editbtn`;
+    editbtn.className=`btn btn-success editbtn m-2`;
     editbtn.setAttribute("type","submit");
     editbtn.setAttribute("id",`${userDataString}`);
     editbtn.innerHTML=`Edit`;
 
     //delebtn 
     const delbtn= document.createElement(`button`);
-    delbtn.className=`btn btn-danger delbtn`;
+    delbtn.className=`btn btn-danger delbtn m-2`;
     delbtn.setAttribute("type","submit");
     delbtn.setAttribute("id",`${userDataString}`);
     delbtn.innerHTML=`Delete`;
@@ -42,7 +42,11 @@ function onsubmit(e){
     li.appendChild(editbtn);
     li.appendChild(delbtn);
     userList.append(li);
-    console.log(li);
+    
+    //reinitializing to blank 
+    amount.value='';
+    description.value='';
+    category.value='';
 }
 
 // create delete function 
@@ -51,7 +55,6 @@ userList.addEventListener('click', onDelete);
 function onDelete(e) {
     e.preventDefault();
     if (e.target.classList.contains('delbtn')) {
-        console.log(`deleet`);
         // remove from local storage
         const btnId = JSON.parse(e.target.id).userAmount;
         localStorage.removeItem(`${btnId}`);
@@ -61,16 +64,16 @@ function onDelete(e) {
 
     }
     if (e.target.classList.contains('editbtn')) {
-        console.log(`deditttt`);
         // //remove from local storage
         const btnId = JSON.parse(e.target.id);
         localStorage.removeItem(`${btnId.userAmount}`);
         
-        // //regain name and phone number
-        const lists = document.querySelectorAll('input');
-        // lists[0].value = `${btnId.userName}`;
-        // lists[1].value =`${btnId.userEmail}`;
-        // lists[2].value = `${btnId.userPhone}`;
+        // //regain details
+        const editAmout= document.querySelector('input');
+        editAmout.value=`${btnId.userAmount}`;
+        const editselect= document.querySelectorAll('select');
+        editselect[0].value=`${btnId.userDescription}`;
+        editselect[1].value=`${btnId.userCategory}`;
         // //delete value from browser
         e.target.parentElement.remove();
     }

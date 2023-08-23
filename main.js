@@ -22,7 +22,7 @@ function onsubmit(e){
     
     //adding element to browser
     const li = document.createElement(`li`);
-    li.className=`list-group-item-light`;
+    li.className=`list-group-item-light border border-black mt-3 p-2 ps-5 w-75`;
     li.innerText=` ${amount.value} rs - ${description.value} - ${category.value} `
 
     //edit btn
